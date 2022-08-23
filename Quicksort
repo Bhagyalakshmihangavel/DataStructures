@@ -1,0 +1,79 @@
+//QuickSort
+
+#include<stdio.h>
+
+void quicksort(int arr[],int lb,int ub);
+int partision(int arr[],int lb,int ub);
+void swap(int *a,int *b);
+void print(int arr[],int n);
+
+void quicksort(int arr[],int lb,int ub)
+{
+    if(lb<ub)
+    {
+        int loc=partision(arr,lb,ub);
+        quicksort(arr,lb,loc-1);
+        quicksort(arr,loc+1,ub);
+    }
+}
+
+int partision(int arr[],int lb,int ub)
+{
+    int pivot,start,end;
+    pivot=arr[lb];
+    start=lb;
+    end=ub;
+ 
+ while(start<end)
+ {
+    while(arr[start]<=pivot)
+      start++;
+    while(arr[end]>=pivot)
+      end--;
+      
+      if(start<end)
+      {
+          swap(&arr[start],&arr[end]);
+      }
+ }
+ 
+ swap(&arr[lb],&arr[end]);
+ 
+ return end;
+ 
+    
+}
+
+void swap(int *a,int *b)
+{
+   
+    int temp=*a;
+    *a=*b;
+    *b=temp;
+}
+
+void print(int arr[],int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        printf("%d ",arr[i]);
+    }
+}
+
+
+
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+      int lb=0,ub=n-1;
+    
+    quicksort(arr,lb,ub);
+    print(arr,n);
+    return 0;
+}
