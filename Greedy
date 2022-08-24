@@ -1,50 +1,39 @@
 #include<stdio.h>
 int main()
 {
-    int n;
+    int n,c=0;
+    printf("Enter size ");
     scanf("%d",&n);
     int arr[n];
+    printf("Enter coin Denominations ");
     for(int i=0;i<n;i++)
     {
         scanf("%d",&arr[i]);
     }
-    
     int x;
+    printf("Enter Target ");
     scanf("%d",&x);
     
-    int max=arr[0];
-    int min=arr[0];
-    
     for(int i=0;i<n;i++)
     {
-        if(arr[i]>max)
+        for(int j=0;j<n;j++)
         {
-            max=arr[i];
+            if(arr[i]>arr[j])
+            {
+                int temp=arr[i];
+                arr[i]=arr[j];
+                arr[j]=temp;
+            }
         }
     }
-    
     for(int i=0;i<n;i++)
     {
-        if(arr[i]<min)
+        while(arr[i]<=x)
         {
-            min=arr[i];
-        }
-    }
-    
-    int c=0;
-    
-    while(x!=0){
-        if(max<=x)
-        {
-            x=x-max;
+            x=x-arr[i];
             c++;
-        }
-        else
-        {
-          x=x-min;
-          c++;
         }
     }
     printf("%d",c);
+    return 0;
 }
-
