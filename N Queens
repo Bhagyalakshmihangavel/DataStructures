@@ -1,0 +1,78 @@
+#include<stdio.h>
+
+int safe(int n,char arr[n][n],int r,int c)
+{
+    int i,j;
+    for(i=0;i<c;i++)                //To check is any queen is in left colmn
+    {
+        if(arr[r][i]=='Q')
+          return 0;
+    }
+    
+    for(int i=r,j=c;i>=0 && j>=0;i--,j--)    //To check is any queen is in left lower diagonal
+    {
+        if(arr[i][j]=='Q')
+         return 0;
+    }
+    
+    for(i=r,j=c;i<n && j>=0;i++,j--)    //To check is any queen is in left higher diagonal
+    {
+        if(arr[i][j]=='Q')
+          return 0;
+    }
+    
+    return 1;
+}
+
+
+
+int place(int n,char arr[n][n],int c)  //Function to place the queen
+{
+    if(c>=n)                           //check until cln value is less than n
+       return 1;
+    for(int i=0;i<n;i++)               //i=row c=colun
+    {
+        if(safe(n,arr,i,c))            //Functon tocheck whether the pace is crct or not
+        {
+            arr[i][c]='Q';
+            if(place(n,arr,c+1))       //going to place the queen in nxt colmn
+               return 1;
+            arr[i][c]='*';
+        }
+    }
+    
+    return 0;  //This is for input 2 and 3
+}
+
+void display(int n,char arr[n][n])
+{
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            printf("%c ",arr[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    char arr[n][n];
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            arr[i][j]='*';
+        }
+    }
+    
+    if(place(n,arr,0)==0)  //third value in agument denoting colm value starting with 0
+       printf("no");  //can't place queen if n is 2 or 3
+    else
+       display(n,arr);
+       
+     return 0;
+}
