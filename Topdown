@@ -1,0 +1,61 @@
+#include<stdio.h>
+
+int topdown(int arr[],int target,int n,int count);
+
+int main()
+{
+    int n;
+    scanf("%d",&n);
+    
+    int arr[n];
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    
+    int target,count=0;
+    scanf("%d",&target);
+    int d=topdown(arr,target,n,count);
+    printf("%d",d);
+    return 0;
+    
+    
+}
+    
+int topdown(int arr[],int target,int n,int count)
+{
+     int res[n],min;
+     
+        for(int i=0;i<n;i++)
+        {
+            res[i]=target-arr[i];
+            
+        }
+        
+        min=res[0];
+        for(int i=0;i<n;i++)
+        {
+            if(res[i]>=0)
+            {
+            if(res[i]<min)
+            {
+                
+                min=res[i];
+            }
+            }
+        }
+        
+        if(min==0)
+               {
+                  
+                   count++;
+                   return count;
+               }
+
+        target=min;
+        
+        count++;
+        
+        topdown(arr,target,n,count);
+}
+
