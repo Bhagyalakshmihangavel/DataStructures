@@ -1,0 +1,44 @@
+#include <stdio.h>
+int tempi=0;
+int amount = 11;
+void CombinationRepetitionUtil(int chosen[], int arr[],int index, int r, int start, int end)
+{
+    int tempSum = 0;
+    if (index == r)
+    {
+        for (int i = 0; i < r; i++){
+            tempSum+=arr[chosen[i]];
+        }
+        if(tempSum==amount){
+            for (int k = 0; k < r; k++)
+            {
+            printf("%d ",arr[chosen[k]]);
+            }
+            tempi=1;
+            printf("\n");
+        }
+        return;
+    }
+    for (int i = start; i <= end; i++)
+    {
+        chosen[index] = i;
+        CombinationRepetitionUtil(chosen, arr, index + 1, r, i, end);
+    }
+    return;
+}
+void CombinationRepetition(int arr[], int n, int r)
+{
+    int chosen[r+1];
+    if(tempi==0){
+        CombinationRepetitionUtil(chosen, arr, 0, r, 0, n-1);
+    }
+}
+int main()
+{
+    int arr[] = {1, 2, 5};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    for(int i=1;i<=11;i++){
+    CombinationRepetition(arr, n, i);
+    }
+    return 0;
+}
